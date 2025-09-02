@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Profile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            min-height: 100vh;
+            background: #111;
+            position: relative;
+        }
+
+        .header {
+            padding: 60px 30px 40px;
+            text-align: center;
+            background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
+            position: relative;
+        }
+
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            font-weight: bold;
+            color: white;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .profile-image-fallback {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #ff6b35 0%, #ffd700 100%);
+            font-size: 48px;
+        }
+
+        .username {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .bio {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #ccc;
+            margin-bottom: 30px;
+            padding: 0 10px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 20px;
+        }
+
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-icon:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .links-section {
+            padding: 0 20px;
+        }
+
+        .link-item {
+            background: rgba(255, 255, 255, 0.05);
+            margin-bottom: 15px;
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+        }
+
+        .link-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .link-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .link-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: white;
+        }
+
+        .bgmi-icon { background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%); }
+        .ludo-icon { background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%); }
+        .uno-icon { background: linear-gradient(135deg, #e91e63 0%, #ff5722 100%); }
+        .freefire-icon { background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%); }
+        .pes-icon { background: linear-gradient(135deg, #2196F3 0%, #21CBF3 100%); }
+
+        .link-text {
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        .link-subtitle {
+            font-size: 12px;
+            color: #999;
+            margin-top: 2px;
+        }
+
+        .more-icon {
+            color: #666;
+            font-size: 20px;
+        }
+
+        .special-link {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 15px;
+            border-radius: 25px;
+            margin: 20px;
+            text-decoration: none;
+            display: block;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .special-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .link-item {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .link-item:nth-child(1) { animation-delay: 0.1s; }
+        .link-item:nth-child(2) { animation-delay: 0.2s; }
+        .link-item:nth-child(3) { animation-delay: 0.3s; }
+        .link-item:nth-child(5) { animation-delay: 0.4s; }
+        .link-item:nth-child(6) { animation-delay: 0.5s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="profile-image">
+                <img src="GDC logo2.png" alt="GDC Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="profile-image-fallback" style="display: none;">🎮</div>
+            </div>
+            <div class="username">GDCMESCET Tournament 2025</div>
+            <div class="bio">
+                🎮 GDCMESCET Tournament 2025 🎮
+                5 Epic Games • Multiple Categories
+                Register now and showcase your gaming skills!
+                May the best gamer win! 🏆
+            </div>
+            <div class="social-icons">
+                <a href="#" class="social-icon">📷</a>
+                <a href="#" class="social-icon">📱</a>
+                <a href="#" class="social-icon">𝕏</a>
+            </div>
+        </div>
+
+        <div class="links-section">
+            <div class="link-item" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLScdGhogEhdZB4CxQdl2y24p7ZfizrKjagB4KnUR3yvK2exu9g/viewform?usp=sharing&ouid=107092201954388472504', '_blank')">
+                <div class="link-content">
+                    <div class="link-icon bgmi-icon">🔫</div>
+                    <div>
+                        <div class="link-text">BGMI Tournament</div>
+                        <div class="link-subtitle">BATTLE ROYALE</div>
+                    </div>
+                </div>
+                <div class="more-icon">→</div>
+            </div>
+
+            <div class="link-item" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLScBDu_Esd9EBf3DRj12VdOG4-d5j7VTkOk6rSyQDji_oxdctw/viewform?usp=sharing&ouid=107092201954388472504', '_blank')">
+                <div class="link-content">
+                    <div class="link-icon ludo-icon">🎲</div>
+                    <div>
+                        <div class="link-text">Ludo Tournament</div>
+                        <div class="link-subtitle">CLASSIC BOARD GAME</div>
+                    </div>
+                </div>
+                <div class="more-icon">→</div>
+            </div>
+
+            <div class="link-item" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLScqd3OHGNfkooBY5R1PiQaBTFfmwmrIABIEapNYv9ysJAeQmQ/viewform?usp=sharing&ouid=107092201954388472504', '_blank')">
+                <div class="link-content">
+                    <div class="link-icon uno-icon">🃏</div>
+                    <div>
+                        <div class="link-text">UNO Tournament</div>
+                        <div class="link-subtitle">CARD STRATEGY</div>
+                    </div>
+                </div>
+                <div class="more-icon">→</div>
+            </div>
+
+            <div class="link-item" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfoOSs64S2UGIAbef0PrIMyyT-AFRi3jFlHwoRhRtkzfV396g/viewform?usp=sharing&ouid=107092201954388472504', '_blank')">
+                <div class="link-content">
+                    <div class="link-icon freefire-icon">🔥</div>
+                    <div>
+                        <div class="link-text">Free Fire Tournament</div>
+                        <div class="link-subtitle">BATTLE ROYALE</div>
+                    </div>
+                </div>
+                <div class="more-icon">→</div>
+            </div>
+
+            <div class="link-item" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLScnbg_Vag_oU4QjKwMasi5K1RJjxmjZNdy40TUjjWH_pRUwJQ/viewform?usp=sharing&ouid=107092201954388472504', '_blank')">
+                <div class="link-content">
+                    <div class="link-icon pes-icon">⚽</div>
+                    <div>
+                        <div class="link-text">PES Tournament</div>
+                        <div class="link-subtitle">FOOTBALL SIMULATION</div>
+                    </div>
+                </div>
+                <div class="more-icon">→</div>
+            </div>
+        </div>
+
+        <a href="#" class="special-link">
+            🎮 Gaming Tournament 2025 - Register Now!
+        </a>
+
+        <div style="text-align: center; padding: 20px; color: #666; font-size: 14px;">
+            Choose your game and dominate the competition! 🏆
+        </div>
+    </div>
+
+    <script>
+        // Add click interactions
+        document.querySelectorAll('.link-item').forEach(item => {
+            item.addEventListener('click', () => {
+                // Add your click handling logic here
+                console.log('Link clicked:', item.querySelector('.link-text').textContent);
+            });
+        });
+
+        // Add hover effects
+        document.querySelectorAll('.social-icon').forEach(icon => {
+            icon.addEventListener('mouseenter', () => {
+                icon.style.transform = 'scale(1.1) translateY(-2px)';
+            });
+            
+            icon.addEventListener('mouseleave', () => {
+                icon.style.transform = 'scale(1) translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
